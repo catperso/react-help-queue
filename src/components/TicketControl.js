@@ -8,7 +8,8 @@ class TicketControl extends React.Component {
     super(props);
     this.state = {
       formVisibleOnPage: false,
-      allowedToSubmit: 0
+      allowedToSubmit: 0,
+      mainTicketList: []
     };
   }
 
@@ -25,6 +26,12 @@ class TicketControl extends React.Component {
     }));
   }
 
+  handleAddingNewTicketToList = (newTicket) => {
+    const newMainTicketList = this.state.mainTicketList.concat(newTicket);
+    this.setState({mainTicketList: newMainTicketList,
+                  formVisibleOnPage: false });
+  }
+
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
@@ -37,14 +44,14 @@ class TicketControl extends React.Component {
       } else if (this.state.allowedToSubmit === 2) {
         currentlyVisibleState = <p>"Have you spent 15 minutes going through through the problem documenting every step?"</p>;
       } else if (this.state.allowedToSubmit >= 3) {
-        currentlyVisibleState = <NewTicketForm />;
+        currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />;
       }
       if (this.state.allowedToSubmit < 3) {
         addAdvanceButton = <button onClick={this.advanceText} class="btn btn-warning">Yes I did!</button>;
       }
       buttonText = "Return to ticket list";
     } else {
-      currentlyVisibleState = <TicketList />;
+      currentlyVisibleState = <TicketList ticketList={this.state.mainTicketList}/>;
       buttonText = "Add ticket";
     }
     return (
