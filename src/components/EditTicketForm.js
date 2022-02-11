@@ -7,7 +7,11 @@ function EditTicketForm (props) {
 
   function handleEditTicketFormSubmission(event) {
     event.preventDefault();
-    props.onEditTicket({names: event.target.names.value, location: event.target.location.value, issue: event.target.issue.value, id: ticket.id});
+    props.onEditTicket({
+      names: event.target.names.value || ticket.names, 
+      location: event.target.location.value || ticket.location, 
+      issue: event.target.issue.value || ticket.issue, 
+      id: ticket.id});
   }
 
   return (
