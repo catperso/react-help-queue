@@ -12,7 +12,6 @@ class TicketControl extends React.Component {
     super(props);
     this.state = {
       formVisibleOnPage: false,
-      allowedToSubmit: 0,
       selectedTicket: null,
       editing: false
     };
@@ -23,21 +22,13 @@ class TicketControl extends React.Component {
       this.setState({
         formVisibleOnPage: false,
         selectedTicket: null,
-        allowedToSubmit: 0,
         editing: false
       });
     } else {
       this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage,
-        allowedToSubmit: 0
+        formVisibleOnPage: !prevState.formVisibleOnPage
       }));
     }
-  }
-
-  advanceText = () => {
-    this.setState(prevState => ({
-      allowedToSubmit: prevState.allowedToSubmit += 1
-    }));
   }
 
   handleAddingNewTicketToList = (newTicket) => {
@@ -92,7 +83,6 @@ class TicketControl extends React.Component {
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
-    let addAdvanceButton = null;
 
     if (this.state.editing) {
       currentlyVisibleState = <EditTicketForm ticket = {this.state.selectedTicket} onEditTicket = {this.handleEditingTicketInList} />
@@ -103,18 +93,7 @@ class TicketControl extends React.Component {
                                             onClickingEdit = {this.handleEditClick} />
       buttonText = "Return to Ticket List";
     } else if (this.state.formVisibleOnPage) {
-      if (this.state.allowedToSubmit === 0) {
-        currentlyVisibleState = <p>"Have you gone through all the steps on the Learn How to Program debugging lesson?"</p>;
-      } else if (this.state.allowedToSubmit === 1) {
-        currentlyVisibleState = <p>"Have you asked another pair for help?"</p>;
-      } else if (this.state.allowedToSubmit === 2) {
-        currentlyVisibleState = <p>"Have you spent 15 minutes going through through the problem documenting every step?"</p>;
-      } else if (this.state.allowedToSubmit >= 3) {
-        currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />;
-      }
-      if (this.state.allowedToSubmit < 3) {
-        addAdvanceButton = <button onClick={this.advanceText} className="btn btn-warning">Yes I did!</button>;
-      }
+      currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />;
       buttonText = "Return to Ticket List";
     } else {
       currentlyVisibleState = <TicketList ticketList={this.props.mainTicketList} onTicketSelection={this.handleChangingSelectedTicket} />;
@@ -123,7 +102,6 @@ class TicketControl extends React.Component {
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        {addAdvanceButton}
         <button onClick={this.handleClick} className="btn btn-info">{buttonText}</button>
       </React.Fragment>
     );
