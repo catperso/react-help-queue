@@ -11,7 +11,10 @@ function EditTicketForm (props) {
       names: event.target.names.value || ticket.names, 
       location: event.target.location.value || ticket.location, 
       issue: event.target.issue.value || ticket.issue, 
-      id: ticket.id});
+      id: ticket.id,
+      timeOpen: ticket.timeOpen,
+      formattedWaitTime: ticket.formattedWaitTime
+    });
   }
 
   return (
