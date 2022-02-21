@@ -95,6 +95,13 @@ class TicketControl extends React.Component {
   //   });
   // }
 
+  handleEditingTicketInList = () => {
+    this.setState({
+      editing: false,
+      selectedTicket: null
+    });
+  }
+
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
