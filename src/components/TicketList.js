@@ -30,6 +30,14 @@ function TicketList(props){
   // The useSelector() hook comes from react-redux.
   const tickets = useSelector(state => state.firestore.ordered.tickets);
 
+  if (isEmpty(tickets)) {
+    return (
+      <React.Fragment>
+        <h3>No tickets!</h3>
+      </React.Fragment>
+    )
+  }
+
   // react-redux-firebase also offers a useful isLoaded() function.
   if (isLoaded(tickets)) {
     return (
