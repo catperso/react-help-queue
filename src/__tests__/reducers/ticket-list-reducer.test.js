@@ -28,25 +28,6 @@ describe('ticketListReducer', () => {
     expect(ticketListReducer({}, { type: null })).toEqual({});
   });
 
-  test('Should successfully add new ticket data to mainTicketList', () => {
-    const { names, location, issue, id } = ticketData;
-    action = {
-      type: c.ADD_TICKET,
-      names: names,
-      location: location,
-      issue: issue,
-      id: id
-    };
-
-    expect(ticketListReducer({}, action)).toEqual({
-      [id] : {
-        names: names,
-        location: location,
-        issue: issue,
-        id: id
-      }
-    });
-  });
 
   test('Should successfully delete a ticket', () => {
     action = {
@@ -80,26 +61,4 @@ describe('ticketListReducer', () => {
     });
   });
 
-  test('should successfully add a ticket to the ticket list that includes Moment-formatted wait times', () => {
-    const { names, location, issue, timeOpen, id } = ticketData;
-    action = {
-      type: c.ADD_TICKET,
-      names: names,
-      location: location,
-      issue: issue,
-      timeOpen: timeOpen,
-      id: id,
-      formattedWaitTime: new Moment().fromNow(true)
-    };
-    expect(ticketListReducer({}, action)).toEqual({
-      [id] : {
-        names: names,
-        location: location,
-        issue: issue,
-        timeOpen: timeOpen,
-        id: id,
-        formattedWaitTime: 'a few seconds'
-      }
-    });
-  });
 });
