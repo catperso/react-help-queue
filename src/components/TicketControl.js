@@ -18,26 +18,6 @@ class TicketControl extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.waitTimeUpdateTimer = setInterval(() =>
-  //     this.updateTicketElapsedWaitTime(),
-  //   60000
-  //   );
-  // }
-
-  // componentWillUnmount(){
-  //   clearInterval(this.waitTimeUpdateTimer);
-  // }
-
-  // updateTicketElapsedWaitTime = () => {
-  //   const {dispatch} = this.props;
-  //   Object.values(this.props.mainTicketList).forEach(ticket => {
-  //     const newFormattedWaitTime = ticket.timeOpen.fromNow(true);
-  //     const action = a.updateTime(ticket.id, newFormattedWaitTime);
-  //     dispatch(action);
-  //   });
-  // }
-
   handleClick = () => {
     if (this.state.selectedTicket != null) {
       this.setState({
@@ -57,11 +37,6 @@ class TicketControl extends React.Component {
     dispatch(action);
   }
 
-  // handleChangingSelectedTicket = (id) => {
-  //   const selectedTicket = this.props.mainTicketList[id];
-  //   this.setState({selectedTicket: selectedTicket});
-  // }
-
   handleChangingSelectedTicket = (id) => {
     this.props.firestore.get({collection: 'tickets', doc: id}).then((ticket) => {
       const firestoreTicket = {
@@ -74,13 +49,6 @@ class TicketControl extends React.Component {
     });
   }
   
-  // handleDeletingTicket = (id) => {
-  //   const { dispatch } = this.props;
-  //   const action = a.deleteTicket(id);
-  //   dispatch(action);
-  //   this.setState({selectedTicket: null});
-  // }
-
   handleDeletingTicket = (id) => {
     this.props.firestore.delete({collection: 'tickets', doc: id});
     this.setState({selectedTicket: null});
@@ -89,16 +57,6 @@ class TicketControl extends React.Component {
   handleEditClick = () => {
     this.setState({editing: true});
   }
-
-  // handleEditingTicketInList = (ticketToEdit) => {
-  //   const { dispatch } = this.props;
-  //   const action = a.addTicket(ticketToEdit);
-  //   dispatch(action);
-  //   this.setState({
-  //     editing: false,
-  //     selectedTicket: null
-  //   });
-  // }
 
   handleEditingTicketInList = () => {
     this.setState({

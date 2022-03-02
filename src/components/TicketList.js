@@ -5,24 +5,6 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 
-// function TicketList(props){
-//   return (
-//     <React.Fragment>
-//       <hr/>
-//       {Object.values(props.ticketList).map((ticket) =>
-//         <Ticket
-//           whenTicketClicked = { props.onTicketSelection }
-//           names={ticket.names}
-//           location={ticket.location}
-//           issue={ticket.issue}
-//           formattedWaitTime={ticket.formattedWaitTime}
-//           id={ticket.id}
-//           key={ticket.id}/>
-//       )}
-//     </React.Fragment>
-//   );
-// }
-
 function TicketList(props){
   // The useFirestoreConnect() hook comes from react-redux-firebase.
   useFirestoreConnect([ { collection: 'tickets' } ]);
@@ -37,8 +19,6 @@ function TicketList(props){
       </React.Fragment>
     )
   }
-
-  // react-redux-firebase also offers a useful isLoaded() function.
   if (isLoaded(tickets)) {
     return (
       <React.Fragment>
@@ -55,7 +35,6 @@ function TicketList(props){
         })}
       </React.Fragment>
     );
-  // If the tickets aren't loaded yet, our fragment will return a "Loading..." message.
   } else {
     return (
       <React.Fragment>
@@ -66,7 +45,6 @@ function TicketList(props){
 }
 
 TicketList.propTypes = {
-  // ticketList: PropTypes.object,
   onTicketSelection: PropTypes.func
 };
 
